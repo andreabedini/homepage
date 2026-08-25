@@ -1,0 +1,63 @@
+/* ============================================================
+   TYPOGRAPHY — type families, scale, weights, leading, tracking
+   Display: Newsreader (editorial serif, lively italics)
+   Text/UI: IBM Plex Sans (humanist grotesque)
+   Mono:    IBM Plex Mono (wordmark, labels, code, metadata)
+   ============================================================ */
+
+:root {
+  /* ---- Families ------------------------------------------ */
+  --font-display: "Newsreader", Georgia, "Times New Roman", serif;
+  --font-sans:    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --font-body:    var(--font-sans);
+
+  /* ---- Weights ------------------------------------------- */
+  --fw-light:     300; /* @kind font */
+  --fw-regular:   400; /* @kind font */
+  --fw-medium:    500; /* @kind font */
+  --fw-semibold:  600; /* @kind font */
+  --fw-bold:      700; /* @kind font */
+
+  /* ---- Type scale (fluid-ish, fixed px) ------------------ */
+  --fs-3xs:       11px;  /* tiny labels, footnote markers      */
+  --fs-2xs:       12px;  /* eyebrow / mono labels              */
+  --fs-xs:        13px;  /* captions, metadata                 */
+  --fs-sm:        15px;  /* small body, UI                     */
+  --fs-base:      17px;  /* body                               */
+  --fs-md:        19px;  /* lead body                          */
+  --fs-lg:        24px;  /* h4 / large lead                    */
+  --fs-xl:        32px;  /* h3                                 */
+  --fs-2xl:       44px;  /* h2                                 */
+  --fs-3xl:       60px;  /* h1                                 */
+  --fs-4xl:       84px;  /* display hero                       */
+  --fs-5xl:      116px;  /* oversized statement                */
+
+  /* ---- Line heights -------------------------------------- */
+  --lh-solid:     1;    /* @kind font */
+  --lh-tight:     1.08; /* @kind font */
+  --lh-snug:      1.22; /* @kind font */
+  --lh-normal:    1.5;  /* @kind font */
+  --lh-relaxed:   1.65; /* @kind font */
+
+  /* ---- Letter spacing ------------------------------------ */
+  --ls-tightest: -0.03em;  /* @kind font */
+  --ls-tight:    -0.015em; /* @kind font */
+  --ls-normal:    0em;     /* @kind font */
+  --ls-wide:      0.04em;  /* @kind font */
+  --ls-label:     0.14em;  /* @kind font */
+
+  /* ---- Semantic roles ------------------------------------ */
+  --text-hero:        var(--fw-regular) var(--fs-4xl)/var(--lh-tight) var(--font-display);
+  --text-h1:          var(--fw-regular) var(--fs-3xl)/var(--lh-tight) var(--font-display);
+  --text-h2:          var(--fw-regular) var(--fs-2xl)/var(--lh-snug) var(--font-display);
+  --text-h3:          var(--fw-semibold) var(--fs-xl)/var(--lh-snug) var(--font-sans);
+  --text-h4:          var(--fw-semibold) var(--fs-lg)/var(--lh-snug) var(--font-sans);
+  --text-lead:        var(--fw-regular) var(--fs-md)/var(--lh-relaxed) var(--font-sans);
+  --text-body:        var(--fw-regular) var(--fs-base)/var(--lh-relaxed) var(--font-sans);
+  --text-small:       var(--fw-regular) var(--fs-sm)/var(--lh-normal) var(--font-sans);
+  --text-caption:     var(--fw-regular) var(--fs-xs)/var(--lh-normal) var(--font-sans);
+  --text-label:       var(--fw-medium) var(--fs-2xs)/var(--lh-normal) var(--font-mono);
+  --text-code:        var(--fw-regular) var(--fs-sm)/var(--lh-normal) var(--font-mono);
+}

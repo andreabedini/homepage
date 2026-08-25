@@ -1,0 +1,68 @@
+/* ============================================================
+   SPACING, RADII, SHADOWS, BORDERS, LAYOUT, MOTION
+   8px base rhythm with a few half-steps.
+   ============================================================ */
+
+:root {
+  /* ---- Spacing scale ------------------------------------- */
+  --sp-0:    0;     /* @kind spacing */
+  --sp-1:    4px;
+  --sp-2:    8px;
+  --sp-3:    12px;
+  --sp-4:    16px;
+  --sp-5:    24px;
+  --sp-6:    32px;
+  --sp-7:    48px;
+  --sp-8:    64px;
+  --sp-9:    96px;
+  --sp-10:  128px;
+  --sp-11:  192px;
+
+  /* ---- Radii --------------------------------------------- */
+  /* Restrained: mostly small/none. Pills only for tags/buttons. */
+  --r-none:  0;     /* @kind radius */
+  --r-xs:    3px;
+  --r-sm:    6px;
+  --r-md:    10px;
+  --r-lg:    16px;
+  --r-xl:    24px;
+  --r-pill:  999px;
+  --r-circle: 50%;
+
+  /* ---- Borders ------------------------------------------- */
+  --bw-hair: 1px;
+  --bw-1:    1.5px;
+  --bw-2:    2px;
+  --bw-3:    3px;
+
+  /* ---- Shadows (warm, soft — paper not glass) ------------ */
+  --shadow-xs:  0 1px 2px rgba(40, 28, 20, 0.06);
+  --shadow-sm:  0 2px 6px rgba(40, 28, 20, 0.08);
+  --shadow-md:  0 6px 18px rgba(40, 28, 20, 0.10);
+  --shadow-lg:  0 16px 40px rgba(40, 28, 20, 0.14);
+  /* "lifted card" — a hard offset like a stacked print card  */
+  --shadow-print: 4px 4px 0 var(--ink);
+  --shadow-print-coral: 4px 4px 0 var(--coral);
+
+  /* ---- Layout widths ------------------------------------- */
+  --measure:      66ch;   /* @kind spacing */
+  --content-w:    720px;  /* @kind spacing */
+  --page-w:       1080px; /* @kind spacing */
+  --shell-w:      1280px; /* @kind spacing */
+  --gutter:       24px;   /* @kind spacing */
+
+  /* ---- Motion -------------------------------------------- */
+  --ease-out:     cubic-bezier(0.22, 0.61, 0.36, 1);  /* @kind other */
+  --ease-in-out:  cubic-bezier(0.65, 0.05, 0.36, 1);  /* @kind other */
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);  /* @kind other */
+  --dur-fast:     120ms; /* @kind other */
+  --dur-base:     200ms; /* @kind other */
+  --dur-slow:     360ms; /* @kind other */
+
+  /* ---- Z layers ------------------------------------------ */
+  --z-base:    1;    /* @kind other */
+  --z-raised:  10;   /* @kind other */
+  --z-sticky:  100;  /* @kind other */
+  --z-overlay: 1000; /* @kind other */
+  --z-toast:   1100; /* @kind other */
+}

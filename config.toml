@@ -1,0 +1,57 @@
+# schema: https://cscnk52.github.io/json-schemas/zola.schema.json
+# tombi: format.rules.table-keys-order = "version-sort"
+
+base_url = "https://www.andreabedini.com"
+build_search_index = false
+compile_sass = false
+default_language = "en"
+description = "I am Andrea, a problem maker solver. PhD in mathematical physics, software engineer, based in Perth, Australia."
+feed_filenames = ["atom.xml"]
+generate_feeds = false
+taxonomies = []
+title = "Andrea Bedini"
+
+[extra]
+[[extra.nav]]
+name = "Home"
+url = "/"
+
+[[extra.nav]]
+name = "Projects"
+url = "/projects/"
+
+[[extra.nav]]
+name = "CV"
+url = "/cv/"
+
+[[extra.nav]]
+name = "Academia"
+url = "/academia/"
+
+[[extra.nav]]
+name = "Blog"
+url = "/posts/"
+
+[[extra.social]]
+icon = "github"
+label = "github.com/andreabedini"
+href = "https://github.com/andreabedini"
+
+[[extra.social]]
+icon = "linkedin"
+label = "in/bediniandrea"
+href = "https://www.linkedin.com/in/bediniandrea/"
+
+[[extra.social]]
+icon = "mail"
+label = "andrea@bedini.au"
+href = "mailto:andrea@bedini.au"
+
+[markdown]
+smart_punctuation = true
+render_emoji = false
+
+[markdown.highlighting]
+style = "inline"
+light_theme = "solarized-light"
+dark_theme = "solarized-dark"

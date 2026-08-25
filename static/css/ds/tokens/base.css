@@ -1,0 +1,35 @@
+/* ============================================================
+   BASE — light resets + element defaults so consumers and
+   specimen cards inherit the brand voice out of the box.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: var(--text-body);
+  letter-spacing: var(--ls-normal);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--coral); color: var(--ink); }
+
+a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--link-hover); }
+
+h1, h2, h3, h4, h5, h6 { margin: 0; color: var(--text); }
+p { margin: 0; }
+
+code, kbd, samp, pre { font-family: var(--font-mono); }
+
+:focus-visible {
+  outline: var(--bw-2) solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+img { max-width: 100%; display: block; }

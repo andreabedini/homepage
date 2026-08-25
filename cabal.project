@@ -1,5 +1,0 @@
-packages:
-  *.cabal
-
-package hakyll
-  flags: +watchServer +previewServer

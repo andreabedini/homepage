@@ -1,8 +1,14 @@
-<footer>
-  <ul>
-    <li><a href="https://github.com/andreabedini">GitHub</a></li>
-    <li><a href="https://www.linkedin.com/in/bediniandrea/">LinkedIn</a></li>
-    <li><a href="mailto:andrea@andreabedini.com">Email</a></li>
-  </ul>
-  <img style="width: 2rem; float: right; margin-right: 2rem;" alt="" src="/images/avatar.svg"/>
+<footer class="site-footer" data-theme="ink">
+  <div class="site-footer__top">
+    <div>
+      {{<wordmark size="lg" />}}
+      <p class="site-footer__blurb">Curious by default. Based in Perth, Australia.</p>
+    </div>
+    <div class="site-footer__links">
+      {% for link in config.extra.social %}
+      <a class="social-link" href="{{ link.href }}">{{<icon name={link.icon} />}}{{ link.label }}</a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="site-footer__colophon">// built with curiosity &middot; {{ now() | date(format="%Y") }}</div>
 </footer>

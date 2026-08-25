@@ -1,0 +1,103 @@
+/* ============================================================
+   COLORS — Andrea Bedini personal brand
+   Warm paper + ink, signature coral, blueprint blue accent.
+   Base palette first, then semantic aliases.
+   ============================================================ */
+
+:root {
+  /* ---- Warm neutrals (paper & ink) ------------------------ */
+  --paper:        #FBF6EF; /* page background, warm off-white   */
+  --paper-2:      #F4ECE0; /* raised/sunken warm surface        */
+  --paper-3:      #ECE1D2; /* hairline dividers, tints          */
+  --paper-4:      #E0D2BF; /* stronger borders                  */
+
+  --ink:          #1C1A17; /* primary text, warm near-black     */
+  --ink-2:        #46403A; /* secondary text                    */
+  --ink-3:        #786F65; /* muted text, captions              */
+  --ink-4:        #A89E90; /* faint text, placeholders          */
+  --ink-5:        #C7BCAD; /* disabled, faintest lines          */
+
+  /* ---- Coral (signature accent, from the avatar) ---------- */
+  --coral:        #FD8370; /* primary accent                    */
+  --coral-strong: #F0604A; /* hover / pressed / emphasis        */
+  --coral-deep:   #9A2C1A; /* coral text on light surfaces      */
+  --coral-soft:   #FFE0D7; /* coral tint surface                */
+  --coral-line:   #F7B6A8; /* coral hairline on light           */
+
+  /* ---- Blueprint blue (academic / scientific secondary) --- */
+  --blue:         #2F5D7C; /* links, info, the "physics" cool   */
+  --blue-strong:  #214456; /* hover / pressed                   */
+  --blue-soft:    #DCE6EC; /* blue tint surface                 */
+  --blue-line:    #A9C2D1; /* blue hairline                     */
+
+  /* ---- Forest (rare positive / "growth" accent) ----------- */
+  --forest:       #3B6B4E;
+  --forest-soft:  #DBE8DD;
+
+  /* ---- Pure ---------------------------------------------- */
+  --white:        #FFFFFF;
+  --black:        #100E0C;
+
+  /* ============================================================
+     SEMANTIC ALIASES — use these in components
+     ============================================================ */
+  --bg:               var(--paper);
+  --surface:          var(--white);
+  --surface-sunken:   var(--paper-2);
+  --surface-raised:   var(--white);
+  --surface-accent:   var(--coral-soft);
+  --surface-info:     var(--blue-soft);
+
+  --text:             var(--ink);
+  --text-secondary:   var(--ink-2);
+  --text-muted:       var(--ink-3);
+  --text-faint:       var(--ink-4);
+  --text-on-accent:   var(--ink);     /* dark ink reads best on coral */
+  --text-on-ink:      var(--paper);
+
+  --border:           var(--paper-3);
+  --border-strong:    var(--paper-4);
+  --border-ink:       var(--ink);
+
+  --accent:           var(--coral);
+  --accent-hover:     var(--coral-strong);
+  --accent-text:      var(--coral-deep);
+
+  --link:             var(--blue);
+  --link-hover:       var(--blue-strong);
+
+  --focus-ring:       var(--coral-strong);
+}
+
+/* ============================================================
+   INK MODE — dark warm scope for heroes, footers, callouts.
+   Apply with [data-theme="ink"] on any container.
+   ============================================================ */
+[data-theme="ink"] {
+  --bg:               var(--ink);
+  --surface:          #262220;
+  --surface-sunken:   #161412;
+  --surface-raised:   #2E2A26;
+  --surface-accent:   #3A2620;
+  --surface-info:     #1E2A33;
+
+  --text:             #F3EBDF;
+  --text-secondary:   #CFC5B7;
+  --text-muted:       #9E9486;
+  --text-faint:       #6F665B;
+  --text-on-accent:   var(--ink);
+  --text-on-ink:      #F3EBDF;
+
+  --border:           #38322C;
+  --border-strong:    #4A433B;
+  --border-ink:       #F3EBDF;
+
+  --accent:           var(--coral);
+  --accent-hover:     #FF9885;
+  --accent-text:      #FFB3A2;
+
+  --link:             #8FB6CE;
+  --link-hover:       #B4D0E2;
+
+  --focus-ring:       var(--coral);
+}

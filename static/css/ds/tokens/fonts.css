@@ -1,0 +1,11 @@
+/* ============================================================
+   FONTS — Newsreader, IBM Plex Sans, IBM Plex Mono.
+
+   Upstream (personal-design-system) @imports these from the
+   Google Fonts CDN here. We link them from templates/base.html
+   instead so the font CSS is fetched in parallel with this file
+   rather than after it. Everything else is verbatim upstream.
+
+   Swap for self-hosted @font-face rules if licensed binaries
+   ever turn up.
+   ============================================================ */

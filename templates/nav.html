@@ -1,10 +1,14 @@
-<nav>
-  <a href="/" title="home">Home</a>
-  <span>·</span>
-  <a href="/cv/" title="cv">CV</a>
-  <span>·</span>
-  <a href="/academia/" title="Academia">Academia</a>
-  <!-- <span>·</span> -->
-  <!-- <a href="/blog/" title="Blog">Blog</a> -->
-  <a style="float:right;" href="/" title="Home">// andreabedini</a>
-</nav>
+{% set path = current_path or "" %}
+<header class="site-nav">
+  <a href="/" style="text-decoration:none">{{<wordmark size="md" />}}</a>
+  <nav class="site-nav__links">
+    {% for item in config.extra.nav %}
+      {% if item.url == "/" %}
+        {% set is_current = path == "/" %}
+      {% else %}
+        {% set is_current = path is starting_with(pat=item.url) %}
+      {% endif %}
+      <a href="{{ item.url }}"{% if is_current %} aria-current="page"{% endif %}>{{ item.name }}</a>
+    {% endfor %}
+  </nav>
+</header>

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Not found — {{ config.title }}{% endblock title %}
+{% block description %}That page does not exist.{% endblock description %}
+
+{% block content %}
+<article class="page">
+  <div class="eyebrow">// 404</div>
+  <h1 class="page__title">This page went looking for an interesting question and never came back.</h1>
+  <p class="page__intro">Sorry — the page you were trying to view does not exist.</p>
+  <div class="cta-row">
+    <a class="btn btn--primary" href="/">Back home</a>
+  </div>
+</article>
+{% endblock content %}

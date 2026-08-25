@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ section.title }} &mdash; {{ config.title }}{% endblock title %}
+{% block description %}{{ section.description }}{% endblock description %}
+
+{% block content %}
+<article class="page">
+  <div class="eyebrow">{{ section.extra.eyebrow }}</div>
+  <h1 class="page__title">{{ section.extra.headline }}</h1>
+
+  <ul class="row-list stack-lg">
+    {% for post in section.pages %}
+    <li class="post-row">
+      <span class="row__years">{{ post.date | date(format="%b %Y") }}</span>
+      <a href="{{ post.permalink }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+    {% if section.pages | length == 0 %}
+    <li class="mono-aside">// nothing here yet</li>
+    {% endif %}
+  </ul>
+</article>
+{% endblock content %}

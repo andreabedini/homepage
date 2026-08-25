@@ -1,7 +1,15 @@
-<article>
-$if(face)$<img
-style="width:8rem;float:right;transform:rotate(-10deg);" alt="" src="/images/avatar.svg">$endif$
-<h1>$title$</h1>
+{# Generic fallback for a plain markdown page. #}
+{% extends "base.html" %}
 
-$body$
+{% block title %}{{ page.title }} &mdash; {{ config.title }}{% endblock title %}
+{% block description %}{{ page?.description or config.description }}{% endblock description %}
+
+{% block content %}
+<article class="page">
+  <div class="eyebrow">// {{ page.title | lower }}</div>
+  <h1 class="page__title">{{ page.title }}</h1>
+  <div class="prose stack-lg">
+    {{ page.content | safe }}
+  </div>
 </article>
+{% endblock content %}
