@@ -3,6 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>(function(){
+    var el = document.documentElement;
+    try { var t = localStorage.getItem('ab-theme'); if (t) el.setAttribute('data-theme', t); } catch (e) {}
+    function isDark() {
+      var cur = el.getAttribute('data-theme');
+      return cur ? cur === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    window.abTheme = function (btn) {
+      if (btn) {
+        var next = isDark() ? 'light' : 'dark';
+        el.setAttribute('data-theme', next);
+        try { localStorage.setItem('ab-theme', next); } catch (e) {}
+      }
+      var b = btn || document.querySelector('.theme-toggle');
+      if (b) b.setAttribute('aria-pressed', isDark() ? 'true' : 'false');
+    };
+    document.addEventListener('DOMContentLoaded', function () { window.abTheme(null); });
+  })();</script>
   <title>{% block title %}{{ config.title }}{% endblock title %}</title>
   <meta name="description" content="{% block description %}{{ config.description }}{% endblock description %}">
   <link rel="canonical" href="{{ current_url | default(value=config.base_url) }}">

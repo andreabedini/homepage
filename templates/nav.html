@@ -1,6 +1,6 @@
 {% set path = current_path or "" %}
 <header class="site-nav">
-  <a href="/" style="text-decoration:none">{{<wordmark size="md" />}}</a>
+  <a href="/">{{<wordmark size="md" />}}</a>
   <nav class="site-nav__links">
     {% for item in config.extra.nav %}
       {% if item.url == "/" %}
@@ -11,4 +11,8 @@
       <a href="{{ item.url }}"{% if is_current %} aria-current="page"{% endif %}>{{ item.name }}</a>
     {% endfor %}
   </nav>
+  <button class="theme-toggle" type="button" aria-label="Toggle dark mode" aria-pressed="false" onclick="abTheme(this)">
+    <span class="theme-toggle__moon">{{<icon name="moon" />}}</span>
+    <span class="theme-toggle__sun">{{<icon name="sun" />}}</span>
+  </button>
 </header>

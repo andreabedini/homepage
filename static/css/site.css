@@ -11,7 +11,12 @@
 
 /* ---- Shell & layout ------------------------------------- */
 
+/* width:100% is load-bearing. <body> is a column flex container (for the
+   sticky footer), and auto margins on a flex item's cross axis suppress
+   align-items:stretch — so without an explicit width each shell shrinks to
+   fit its content instead of filling the viewport up to its max-width. */
 .shell {
+  width: 100%;
   max-width: var(--content-w);
   margin: 0 auto;
   padding: 0 var(--sp-5);
@@ -21,7 +26,7 @@
 
 body {
   min-height: 100vh;
-  background: var(--paper);
+  background: var(--bg);
   display: flex;
   flex-direction: column;
 }
@@ -51,8 +56,9 @@ body {
 }
 
 .wordmark .slashes { color: var(--coral); }
-.wordmark--md { font-size: var(--fs-base); }
-.wordmark--lg { font-size: var(--fs-lg); }
+/* Wordmark.jsx sizes its own ramp (md 20 / lg 30) rather than the type scale. */
+.wordmark--md { font-size: 20px; }
+.wordmark--lg { font-size: 30px; }
 
 /* ---- Nav ------------------------------------------------ */
 
@@ -66,9 +72,16 @@ body {
   gap: var(--sp-4);
   flex-wrap: wrap;
   padding: 20px 0;
-  background: color-mix(in srgb, var(--paper) 86%, transparent);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
   backdrop-filter: blur(8px);
-  border-bottom: var(--bw-hair) solid var(--paper-3);
+  border-bottom: var(--bw-hair) solid var(--border);
+}
+
+/* The wordmark is identity, not a link — ink, never blue. Only the
+   // stays coral. */
+.site-nav > a {
+  color: var(--text);
+  text-decoration: none;
 }
 
 .site-nav__links {
@@ -82,16 +95,16 @@ body {
   font-size: var(--fs-xs);
   letter-spacing: 0.02em;
   text-decoration: none;
-  color: var(--ink-3);
+  color: var(--text-muted);
   padding-bottom: 3px;
   border-bottom: var(--bw-2) solid transparent;
   transition: color var(--dur-fast) var(--ease-out);
 }
 
-.site-nav__links a:hover { color: var(--ink); }
+.site-nav__links a:hover { color: var(--text); }
 
 .site-nav__links a[aria-current="page"] {
-  color: var(--ink);
+  color: var(--text);
   border-bottom-color: var(--coral);
 }
 
@@ -99,10 +112,30 @@ body {
 
 .site-footer {
   margin-top: var(--sp-10);
-  background: var(--ink);
-  color: var(--text-on-ink);
+  background: var(--bg);
+  color: var(--text);
   border-radius: var(--r-xl) var(--r-xl) 0 0;
   padding: var(--sp-8) var(--sp-7) var(--sp-7);
+}
+
+/* The footer rides a wider shell so the ink slab reads as a slab, but its
+   contents still belong to the reading column above. Capping them at the
+   body's measure and centring them lands their edges on that column at
+   every width — the slab's own padding then only sets how far the ink
+   extends past the text, not where the text starts. */
+.site-footer__top,
+.site-footer__colophon {
+  max-width: calc(var(--content-w) - var(--sp-5) * 2);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Narrower than this the slab's 48px inset no longer fits outside the
+   column, so the slab runs edge to edge and its padding becomes the
+   gutter — which is the body's gutter too. */
+@media (max-width: 816px) {
+  .shell--wide { padding: 0; }
+  .site-footer { padding-left: var(--sp-5); padding-right: var(--sp-5); }
 }
 
 .site-footer__top {
@@ -132,7 +165,7 @@ body {
   text-decoration: none;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  color: var(--text-on-ink);
+  color: var(--text);
   transition: color var(--dur-fast) var(--ease-out);
 }
 
@@ -160,17 +193,18 @@ body {
   letter-spacing: var(--ls-wide);
   padding: 5px 12px;
   border-radius: var(--r-pill);
-  border: var(--bw-hair) solid var(--paper-4);
-  color: var(--ink-2);
+  border: var(--bw-hair) solid var(--border-strong);
+  color: var(--text-muted);
   background: transparent;
   white-space: nowrap;
 }
 
-.tag--solid { background: var(--ink); border-color: var(--ink); color: var(--paper); }
-.tag--coral { background: var(--coral-soft); border-color: var(--coral-line); color: var(--coral-deep); }
-.tag--blue  { background: var(--blue-soft);  border-color: var(--blue-line);  color: var(--blue-strong); }
-.tag--sm    { font-size: var(--fs-3xs); padding: 3px 9px; }
-.tag--ghost { border-style: dashed; color: var(--ink-4); }
+.tag--solid { background: var(--text); border-color: var(--text); color: var(--bg); }
+.tag--coral { background: var(--surface-accent); border-color: var(--coral-line); color: var(--accent-text); }
+/* --link-hover is --blue-strong on paper, per Tag.jsx, and stays legible on ink. */
+.tag--blue  { background: var(--surface-info); border-color: var(--blue-line);  color: var(--link-hover); }
+.tag--sm    { font-size: 10px; padding: 3px 9px; }
+.tag--ghost { border-style: dashed; color: var(--text-faint); }
 
 .tag-row {
   display: flex;
@@ -185,9 +219,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  font: var(--text-small);
-  font-weight: var(--fw-medium);
-  padding: 11px 22px;
+  font: var(--fw-semibold) var(--fs-sm)/var(--lh-solid) var(--font-sans);
+  letter-spacing: -0.005em;
+  padding: 10px 20px;
   border-radius: var(--r-pill);
   border: var(--bw-1) solid transparent;
   text-decoration: none;
@@ -199,11 +233,11 @@ body {
 
 .btn:active { transform: translateY(1px); }
 
-.btn--primary { background: var(--coral); color: var(--ink); border-color: var(--coral); }
-.btn--primary:hover { background: var(--coral-strong); border-color: var(--coral-strong); color: var(--ink); }
+.btn--primary { background: var(--accent); color: var(--text-on-accent); border-color: var(--accent); }
+.btn--primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: var(--text-on-accent); }
 
-.btn--secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
-.btn--secondary:hover { background: var(--ink); color: var(--paper); }
+.btn--secondary { background: transparent; color: var(--text); border-color: var(--border-ink); }
+.btn--secondary:hover { background: var(--text); color: var(--bg); }
 
 /* ---- Card ----------------------------------------------- */
 
@@ -211,18 +245,20 @@ body {
   border-radius: var(--r-lg);
   border: var(--bw-hair) solid var(--border);
   background: var(--surface);
-  padding: var(--sp-5);
+  padding: var(--sp-6);
 }
 
+/* Ink cards carry data-theme="ink" in the markup, which re-scopes the
+   semantic tokens, so they stay dark in both site themes. */
 .card--ink {
-  background: var(--ink);
-  border-color: var(--ink);
-  color: var(--text-on-ink);
+  background: var(--bg);
+  border-color: var(--bg);
+  color: var(--text);
 }
 
 .card--print { box-shadow: var(--shadow-print); border-width: var(--bw-1); border-color: var(--ink); }
 .card--ink.card--print { box-shadow: var(--shadow-print-coral); }
-.card--raised { box-shadow: var(--shadow-sm); }
+.card--raised { box-shadow: var(--shadow-md); }
 .card--accent { border-top: var(--bw-3) solid var(--coral); }
 
 .card__label {
@@ -238,6 +274,7 @@ body {
 .avatar {
   background: var(--coral);
   border-radius: var(--r-md);
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
   flex: none;
   line-height: 0;
@@ -247,7 +284,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(1) contrast(1.06);
+  filter: grayscale(1) contrast(1.04);
 }
 
 .avatar--xl { width: 132px; height: 132px; }
@@ -258,10 +295,10 @@ body {
   font: var(--text-label);
   text-transform: uppercase;
   letter-spacing: var(--ls-label);
-  color: var(--coral-strong);
+  color: var(--accent-text);
 }
 
-.eyebrow--muted { color: var(--ink-4); }
+.eyebrow--muted { color: var(--text-faint); }
 
 .section-head {
   display: flex;
@@ -274,7 +311,7 @@ body {
   content: "";
   flex: 1;
   height: 1px;
-  background: var(--paper-3);
+  background: var(--border);
 }
 
 /* ---- Page headers --------------------------------------- */
@@ -325,11 +362,11 @@ body {
 
 .hero__fix s {
   text-decoration-thickness: 3px;
-  text-decoration-color: var(--coral-strong);
-  color: var(--ink-4);
+  text-decoration-color: var(--accent-hover);
+  color: var(--text-faint);
 }
 
-.hero__fix em { font-style: italic; color: var(--coral-strong); }
+.hero__fix em { font-style: italic; color: var(--accent-text); }
 
 @media (max-width: 560px) {
   .hero__title { font-size: var(--fs-3xl); }
@@ -378,8 +415,8 @@ body {
 
 .prose code {
   font: var(--text-code);
-  background: var(--paper-2);
-  border: var(--bw-hair) solid var(--paper-3);
+  background: var(--surface-sunken);
+  border: var(--bw-hair) solid var(--border);
   border-radius: var(--r-xs);
   padding: 1px 5px;
 }
@@ -389,6 +426,7 @@ body {
   font: var(--text-code);
   background: var(--ink);
   color: var(--paper);
+  border: var(--bw-hair) solid var(--border);
   border-radius: var(--r-md);
   padding: var(--sp-4) var(--sp-5);
   overflow-x: auto;
@@ -406,7 +444,7 @@ body {
 .post__meta {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  color: var(--coral-strong);
+  color: var(--accent-text);
   margin-top: var(--sp-3);
 }
 
@@ -421,14 +459,14 @@ body {
   display: flex;
   gap: var(--sp-5);
   padding: var(--sp-4) 0;
-  border-bottom: var(--bw-hair) solid var(--paper-3);
+  border-bottom: var(--bw-hair) solid var(--border);
   align-items: baseline;
 }
 
 .row__years {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  color: var(--coral-strong);
+  color: var(--accent-text);
   flex: none;
   width: 92px;
   letter-spacing: 0.01em;
@@ -438,8 +476,8 @@ body {
 .row__main { flex: 1; }
 .row__role { font: var(--text-h4); display: block; }
 .row__org { font: var(--text-small); color: var(--text-muted); }
-.row__org a { color: var(--text-secondary); text-decoration: none; border-bottom: var(--bw-hair) solid var(--paper-4); }
-.row__org a:hover { color: var(--coral-strong); }
+.row__org a { color: var(--text-secondary); text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
+.row__org a:hover { color: var(--accent-text); }
 .row__note { color: var(--text-faint); font-style: italic; }
 
 @media (max-width: 520px) {
@@ -456,7 +494,7 @@ body {
 .research__n {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  color: var(--coral-strong);
+  color: var(--accent-text);
   flex: none;
   width: 28px;
   padding-top: 5px;
@@ -477,9 +515,9 @@ body {
 
 /* ---- Publications --------------------------------------- */
 
-.pub { padding: var(--sp-4) 0; border-bottom: var(--bw-hair) solid var(--paper-3); }
+.pub { padding: var(--sp-4) 0; border-bottom: var(--bw-hair) solid var(--border); }
 .pub__title { font: var(--text-h4); font-weight: var(--fw-medium); color: var(--text); text-decoration: none; display: block; }
-.pub__title:hover { color: var(--coral-strong); }
+.pub__title:hover { color: var(--accent-text); }
 .pub__meta { font: var(--text-small); color: var(--text-muted); margin-top: 3px; }
 .pub__meta em { font-style: italic; color: var(--text-secondary); }
 
@@ -501,7 +539,7 @@ body {
               box-shadow var(--dur-base) var(--ease-out);
 }
 
-.project-card:hover { border-color: var(--coral-line); box-shadow: var(--shadow-sm); }
+.project-card:hover { border-color: var(--coral-line); box-shadow: var(--shadow-md); }
 
 .project-card__head {
   display: flex;
@@ -517,9 +555,9 @@ body {
   color: var(--text);
 }
 
-.project-card__owner { color: var(--ink-4); font-weight: var(--fw-regular); }
-.project-card__arrow { width: 17px; height: 17px; color: var(--ink-4); flex: none; }
-.project-card:hover .project-card__arrow { color: var(--coral-strong); }
+.project-card__owner { color: var(--text-faint); font-weight: var(--fw-regular); }
+.project-card__arrow { width: 17px; height: 17px; color: var(--text-faint); flex: none; }
+.project-card:hover .project-card__arrow { color: var(--accent-text); }
 .project-card__desc { font: var(--text-small); color: var(--text-muted); line-height: 1.55; margin: var(--sp-3) 0 var(--sp-4); }
 
 .project-card__meta {
@@ -529,7 +567,7 @@ body {
   flex-wrap: wrap;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  color: var(--ink-3);
+  color: var(--text-muted);
 }
 
 .project-card__meta span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
@@ -542,12 +580,12 @@ body {
   display: flex;
   gap: var(--sp-5);
   padding: var(--sp-4) 0;
-  border-bottom: var(--bw-hair) solid var(--paper-3);
+  border-bottom: var(--bw-hair) solid var(--border);
   align-items: baseline;
 }
 
 .post-row a { font: var(--text-h4); color: var(--text); text-decoration: none; }
-.post-row a:hover { color: var(--coral-strong); }
+.post-row a:hover { color: var(--accent-text); }
 
 /* ---- Closing quote -------------------------------------- */
 
@@ -606,3 +644,30 @@ body {
 /* The syntax theme emits an inline background on <pre>; keep the warm
    ink of the design system's ink mode and let the theme colour tokens only. */
 .prose pre.giallo { background: var(--ink) !important; }
+
+/* ---- Theme toggle ---------------------------------------- */
+.theme-toggle {
+  line-height: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-circle);
+  border: var(--bw-hair) solid var(--border);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent-text); }
+.theme-toggle svg { width: 17px; height: 17px; }
+
+/* Show the icon for the theme the button switches TO. */
+.theme-toggle__sun { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle__sun  { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle__moon { display: none; }
+}
+:root[data-theme="dark"] .theme-toggle__sun  { display: block; }
+:root[data-theme="dark"] .theme-toggle__moon { display: none; }

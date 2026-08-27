@@ -14,7 +14,7 @@
   --ink:          #1C1A17; /* primary text, warm near-black     */
   --ink-2:        #46403A; /* secondary text                    */
   --ink-3:        #786F65; /* muted text, captions              */
-  --ink-4:        #A89E90; /* faint text, placeholders          */
+  --ink-4:        #91877C; /* faint text — dark enough to read   */
   --ink-5:        #C7BCAD; /* disabled, faintest lines          */
 
   /* ---- Coral (signature accent, from the avatar) ---------- */
@@ -27,7 +27,7 @@
   /* ---- Blueprint blue (academic / scientific secondary) --- */
   --blue:         #2F5D7C; /* links, info, the "physics" cool   */
   --blue-strong:  #214456; /* hover / pressed                   */
-  --blue-soft:    #DCE6EC; /* blue tint surface                 */
+  --blue-soft:    #DFE6E7; /* blue tint surface, warmed a touch */
   --blue-line:    #A9C2D1; /* blue hairline                     */
 
   /* ---- Forest (rare positive / "growth" accent) ----------- */
@@ -84,7 +84,7 @@
   --text:             #F3EBDF;
   --text-secondary:   #CFC5B7;
   --text-muted:       #9E9486;
-  --text-faint:       #6F665B;
+  --text-faint:       #7D7469;
   --text-on-accent:   var(--ink);
   --text-on-ink:      #F3EBDF;
 
@@ -101,3 +101,40 @@
 
   --focus-ring:       var(--coral);
 }
+
+/* ============================================================
+   DARK MODE — site-wide. Applies on prefers-color-scheme, or a
+   manual override via [data-theme="dark"] / [data-theme="light"]
+   on <html>. Only the semantic aliases move; --paper-*/--ink-*
+   stay fixed brand primitives.
+
+   Panels that are dark on purpose (footer, ink cards) carry
+   [data-theme="ink"] and so keep the ink scope above in BOTH
+   modes — they are never inverted, only lifted a little in dark.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #171310; --surface: #221D19; --surface-sunken: #100E0C; --surface-raised: #2A241F;
+    --surface-accent: #3A2620; --surface-info: #1E2A33;
+    --text: #F3EBDF; --text-secondary: #CFC5B7; --text-muted: #9E9486; --text-faint: #7D7469;
+    --text-on-ink: #F3EBDF;
+    --border: #38322C; --border-strong: #4A433B; --border-ink: #F3EBDF;
+    --accent-hover: #FF9885; --accent-text: #FFB3A2;
+    --link: #8FB6CE; --link-hover: #B4D0E2;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #171310; --surface: #221D19; --surface-sunken: #100E0C; --surface-raised: #2A241F;
+  --surface-accent: #3A2620; --surface-info: #1E2A33;
+  --text: #F3EBDF; --text-secondary: #CFC5B7; --text-muted: #9E9486; --text-faint: #7D7469;
+  --text-on-ink: #F3EBDF;
+  --border: #38322C; --border-strong: #4A433B; --border-ink: #F3EBDF;
+  --accent-hover: #FF9885; --accent-text: #FFB3A2;
+  --link: #8FB6CE; --link-hover: #B4D0E2;
+}
+
+/* An ink panel on an ink page needs to sit above it, not vanish into it. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) [data-theme="ink"] { --bg: #221D19; --surface-sunken: #171310; }
+}
+:root[data-theme="dark"] [data-theme="ink"] { --bg: #221D19; --surface-sunken: #171310; }
