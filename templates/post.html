@@ -7,7 +7,7 @@
 <article class="page">
   <div class="eyebrow">// post</div>
   <h1 class="page__title" style="max-width:24ch">{{ page.title }}</h1>
-  <div class="post__meta">{{ page.date | date(format="%B %e, %Y") }}</div>
+  <div class="post__meta">{{ page.date | date(format="%B %-d, %Y") }}</div>
   <div class="prose post__body">
     {{ page.content | safe }}
   </div>

@@ -24,6 +24,16 @@
 
 .shell--wide { max-width: 960px; }
 
+/* The sticky footer needs a growing chain: <body> is the flex column, so the
+   main shell has to both grow within it and be a column itself for
+   .site-main's flex:1 to mean anything. Without this the footer sits wherever
+   the content ends and paper shows below it on short pages. */
+.shell--main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 body {
   min-height: 100vh;
   background: var(--bg);
@@ -641,9 +651,17 @@ body {
   margin-bottom: var(--sp-3);
 }
 
-/* The syntax theme emits an inline background on <pre>; keep the warm
-   ink of the design system's ink mode and let the theme colour tokens only. */
-.prose pre.giallo { background: var(--ink) !important; }
+/* Zola emits the syntax theme inline as light-dark() pairs, switched by the
+   element's color-scheme — which follows the OS, not our [data-theme] toggle.
+   Code blocks are ink mode in both site themes (readme: "footers, callout
+   cards, and code blocks"), so pin the scheme to dark and the dark half of
+   every pair resolves: solarized-dark tokens on the warm ink we force here,
+   rather than solarized-light tokens on a dark ground whenever the OS and
+   the site disagree. Both need !important to beat Zola's inline style. */
+.prose pre.giallo {
+  color-scheme: dark !important;
+  background: var(--ink) !important;
+}
 
 /* ---- Theme toggle ---------------------------------------- */
 .theme-toggle {

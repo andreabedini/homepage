@@ -20,11 +20,18 @@ Tera macros with components, so `templates/components.html` uses the
   templates; posts are ordinary markdown.
 - `templates/` — Tera templates. `components.html` holds the shared
   components (icons, wordmark, tags, CV rows).
-- `static/css/ds/` — the design system, copied verbatim from
-  `personal-design-system` (the `andreabedini-design` Agent Skill). Re-copy
-  it from there to pick up upstream changes; the only local edit is
-  `tokens/fonts.css`, whose Google Fonts `@import` moved into
-  `templates/base.html` so the fonts load in parallel.
+- `static/css/ds/` — the design system from `personal-design-system` (the
+  `andreabedini-design` Agent Skill). It is **no longer a verbatim copy**;
+  local edits pending validation upstream:
+  - `tokens/fonts.css` — the Google Fonts `@import` moved into
+    `templates/base.html` so the fonts load in parallel.
+  - `tokens/colors.css` — `--ink-4` and `--blue-soft` retuned for contrast,
+    the ink scope's `--text-faint` lifted, and a site-wide dark mode added
+    on top of the system's scoped `[data-theme="ink"]`.
+  - `tokens/base.css` — `::selection` moved onto semantic tokens.
+
+  Re-copying from upstream will drop all of that, so reconcile rather than
+  overwrite.
 - `static/css/site.css` — the site layer: the UI-kit primitives
   (Button, Tag, Card, Avatar, Wordmark) re-implemented as CSS classes
   against the design system's custom properties.
