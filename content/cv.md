@@ -2,6 +2,9 @@
 title = "Curriculum Vitae"
 description = "Physics, then code — the long way round. Andrea Bedini's experience and education."
 template = "cv.html"
+# /education/ and /experience/ were separate pages on the Hakyll site;
+# their content folded in here.
+aliases = ["/education/", "/experience/"]
 
 [extra]
 eyebrow = "// curriculum vitae"
