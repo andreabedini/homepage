@@ -1,7 +1,13 @@
 # andreabedini.com
 
 Static site built with [Zola](https://www.getzola.org). Deployed to GitHub
-Pages by `.github/workflows/publish.yml` on every push to `main`.
+Pages by `.github/workflows/publish.yml` on every push to `main`, using the
+Pages deployment API (`upload-pages-artifact` + `deploy-pages`) rather than
+pushing a `gh-pages` branch.
+
+This requires **Settings → Pages → Build and deployment → Source = "GitHub
+Actions"**. The custom domain lives in those same settings, not in a `CNAME`
+file — with this publishing source a `CNAME` file in the repo does nothing.
 
 ```sh
 zola serve     # http://127.0.0.1:1111, live reload
@@ -9,7 +15,8 @@ zola build     # -> public/
 zola check     # validate internal and external links
 ```
 
-Pinned to Zola **0.23.4** (see `ZOLA_VERSION` in the workflow). 0.23 replaced
+Pinned to Zola **0.23.4** in `mise.toml`; CI installs it with
+`jdx/mise-action`, so local and CI builds use the same binary. 0.23 replaced
 Tera macros with components, so `templates/components.html` uses the
 `{% component %}` / `{{<name />}}` syntax rather than `{% macro %}`.
 
