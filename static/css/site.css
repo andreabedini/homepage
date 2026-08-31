@@ -488,6 +488,12 @@ body {
 .row__org { font: var(--text-small); color: var(--text-muted); }
 .row__org a { color: var(--text-secondary); text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
 .row__org a:hover { color: var(--accent-text); }
+/* A role can carry a link (one course points at its readme). Keep the row's
+   heading colour but mark it with the same quiet hairline the org links use —
+   inheriting the colour with no underline left it indistinguishable from the
+   rows that aren't links. */
+.row__role a { color: inherit; text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
+.row__role a:hover { color: var(--accent-text); }
 .row__note { color: var(--text-faint); font-style: italic; }
 
 @media (max-width: 520px) {
@@ -638,6 +644,19 @@ body {
 }
 
 .cta-row { display: flex; gap: var(--sp-3); margin-top: var(--sp-7); flex-wrap: wrap; align-items: center; }
+
+/* Reachable by screen readers, absent for everyone else. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
 
 .mono-aside {
   font-family: var(--font-mono);

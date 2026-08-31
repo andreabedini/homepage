@@ -49,10 +49,20 @@
 </li>
 {% endcomponent cv_row %}
 
-{# Mono section label followed by a hairline rule. #}
-{% component section_head(label: string) %}
+{# Mono section label followed by a hairline rule.
+
+   Pass heading=true when the label IS the section's heading — it renders as
+   an <h2> styled exactly like the eyebrow, so the section is announced
+   without changing how it looks. Leave it false where a real
+   .section__title follows, as on the CV, or the page ends up with two h2s
+   for one section. #}
+{% component section_head(label: string, heading: bool = false) %}
 <div class="section-head">
-  <span class="eyebrow eyebrow--muted">{{ label }}</span>
+  {%- if heading -%}
+    <h2 class="eyebrow eyebrow--muted">{{ label }}</h2>
+  {%- else -%}
+    <span class="eyebrow eyebrow--muted">{{ label }}</span>
+  {%- endif -%}
 </div>
 {% endcomponent section_head %}
 

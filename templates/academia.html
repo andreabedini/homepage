@@ -12,7 +12,7 @@
   {{<tag_row items={page.extra.tags} class="tag-row stack" />}}
 
   <section class="section" id="research">
-    {{<section_head label="Research" />}}
+    {{<section_head label="Research" heading={true} />}}
     <div class="research">
       {% for r in page.extra.research %}
       <div class="research__item">
@@ -33,14 +33,14 @@
   </section>
 
   <section class="section" id="teaching">
-    {{<section_head label="Teaching · University of Melbourne" />}}
+    {{<section_head label="Teaching · University of Melbourne" heading={true} />}}
     <ul class="row-list">
       {% for t in page.extra.teaching %}
       <li class="row">
         <span class="row__years row__years--narrow">{{ t.years }}</span>
         <div class="row__main">
           <div class="row__role">
-            {% if t?.href %}<a href="{{ t.href }}" style="color:inherit">{{ t.role }}</a>{% else %}{{ t.role }}{% endif %}
+            {% if t?.href %}<a href="{{ t.href }}">{{ t.role }}</a>{% else %}{{ t.role }}{% endif %}
             <span class="mono-aside">{{ t.code }}</span>
           </div>
           <div class="row__org" style="margin-top:2px">{{ t.note }}</div>
@@ -51,7 +51,7 @@
   </section>
 
   <section class="section" id="publications">
-    {{<section_head label="Publications" />}}
+    {{<section_head label="Publications" heading={true} />}}
     <ul class="row-list">
       {% for p in page.extra.publications %}
       <li class="pub">
