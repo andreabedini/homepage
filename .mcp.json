@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "agent-browser": {
+      "type": "stdio",
+      "command": "agent-browser",
+      "args": [
+        "mcp",
+        "--tools",
+        "all"
+      ],
+      "env": {
+        "AGENT_BROWSER_ALLOWED_DOMAINS": [
+          "127.0.0.1:1111"
+        ]
+      }
+    }
+  }
+}
