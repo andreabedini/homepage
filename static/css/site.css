@@ -209,12 +209,9 @@ body {
   white-space: nowrap;
 }
 
-.tag--solid { background: var(--text); border-color: var(--text); color: var(--bg); }
-.tag--coral { background: var(--surface-accent); border-color: var(--coral-line); color: var(--accent-text); }
-/* --link-hover is --blue-strong on paper, per Tag.jsx, and stays legible on ink. */
-.tag--blue  { background: var(--surface-info); border-color: var(--blue-line);  color: var(--link-hover); }
-.tag--sm    { font-size: 10px; padding: 3px 9px; }
-.tag--ghost { border-style: dashed; color: var(--text-faint); }
+/* One outline style only. Tags once came filled in coral, blue and ink, and
+   a row of them was the loudest thing on the page after the hero. */
+.tag--sm { font-size: 10px; padding: 3px 9px; }
 
 .tag-row {
   display: flex;
@@ -266,16 +263,24 @@ body {
   color: var(--text);
 }
 
-.card--print { box-shadow: var(--shadow-print); border-width: var(--bw-1); border-color: var(--ink); }
-.card--ink.card--print { box-shadow: var(--shadow-print-coral); }
-.card--raised { box-shadow: var(--shadow-md); }
-.card--accent { border-top: var(--bw-3) solid var(--coral); }
+
+/* A short aside on an ink card: the home footnote and the ORCID note on
+   academia. One class so the two can't drift apart again. Links inside stay
+   the card's text colour with a quiet underline, like the CV's org links. */
+.card--note { padding: var(--sp-5); max-width: 52ch; }
+.card--note a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 3px;
+}
+.card--note a:hover { text-decoration-color: currentColor; }
 
 .card__label {
   font: var(--text-label);
   text-transform: uppercase;
   letter-spacing: var(--ls-label);
-  color: var(--coral);
+  color: var(--accent-text);
   margin-bottom: var(--sp-2);
 }
 
@@ -341,13 +346,10 @@ body {
 .page__intro {
   font: var(--text-lead);
   color: var(--text-secondary);
-  max-width: 60ch;
+  max-width: var(--measure);
   margin-top: var(--sp-5);
 }
 
-.stack { margin-top: var(--sp-5); }
-.stack-lg { margin-top: var(--sp-7); }
-.section { margin-top: var(--sp-8); }
 
 /* ---- Home hero ------------------------------------------ */
 
@@ -387,12 +389,14 @@ body {
 .prose {
   font: var(--text-lead);
   color: var(--text-secondary);
-  max-width: 60ch;
+  max-width: var(--measure);
 }
 
 .prose > * + * { margin-top: var(--sp-4); }
 
-.prose a {
+.prose a,
+.row__body a,
+.row__link {
   color: var(--link);
   text-decoration: underline;
   text-decoration-color: var(--blue-line);
@@ -400,7 +404,9 @@ body {
   text-decoration-thickness: 1.5px;
 }
 
-.prose a:hover { text-decoration-color: var(--link-hover); }
+.prose a:hover,
+.row__body a:hover,
+.row__link:hover { text-decoration-color: var(--link-hover); }
 
 .prose h2 {
   font: var(--text-h2);
@@ -461,62 +467,66 @@ body {
 .post__body { font: var(--text-body); color: var(--text-secondary); margin-top: var(--sp-6); }
 .post__body h2 { color: var(--text); }
 
-/* ---- Row lists (CV, teaching, publications) -------------- */
+/* ---- Row lists ------------------------------------------ */
 
-.row-list { list-style: none; margin: 0; padding: 0; }
+/* One pattern for every list on the site: CV, research, teaching,
+   publications and the blog. A label column on the left (years, a date, a
+   number), then a title and a smaller line of detail.
 
-.row {
-  display: flex;
-  gap: var(--sp-5);
-  padding: var(--sp-4) 0;
-  border-bottom: var(--bw-hair) solid var(--border);
-  align-items: baseline;
+   The list is a two-column grid and each row borrows its columns through
+   subgrid, so the label column is as wide as the widest label in that list
+   and no wider: "2022 — now" on the CV, "14" on the publications. Titles
+   still line up within a list. */
+
+.row-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: var(--sp-5);
 }
 
-.row__years {
+.row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: baseline;
+  padding: var(--sp-4) 0;
+  border-bottom: var(--bw-hair) solid var(--border);
+}
+
+.row__label {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   color: var(--accent-text);
-  flex: none;
-  width: 92px;
   letter-spacing: 0.01em;
 }
 
-.row__years--narrow { width: 72px; }
-.row__main { flex: 1; }
-.row__role { font: var(--text-h4); display: block; }
-.row__org { font: var(--text-small); color: var(--text-muted); }
-.row__org a { color: var(--text-secondary); text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
-.row__org a:hover { color: var(--accent-text); }
-/* A role can carry a link (one course points at its readme). Keep the row's
-   heading colour but mark it with the same quiet hairline the org links use —
-   inheriting the colour with no underline left it indistinguishable from the
-   rows that aren't links. */
-.row__role a { color: inherit; text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
-.row__role a:hover { color: var(--accent-text); }
-.row__note { color: var(--text-faint); font-style: italic; }
+.row__main { min-width: 0; }
+.row__title { font: var(--text-h4); display: block; color: var(--text); }
+a.row__title { text-decoration: none; }
+a.row__title:hover { color: var(--accent-text); }
 
-@media (max-width: 520px) {
-  .row { flex-direction: column; gap: var(--sp-1); }
-  .row__years, .row__years--narrow { width: auto; }
+.row__meta { font: var(--text-small); color: var(--text-muted); }
+.row__meta a { color: var(--text-secondary); text-decoration: none; border-bottom: var(--bw-hair) solid var(--border-strong); }
+.row__meta a:hover { color: var(--accent-text); }
+.row__meta em { font-style: italic; color: var(--text-secondary); }
+.row__meta .row__note { color: var(--text-faint); }
+
+/* A row can point at material of its own (one course links its notes). A
+   hairline under the heading was too easy to miss, so it's a separate line in
+   the prose link style: blue means link, here as everywhere. */
+.row__link {
+  display: inline-block;
+  margin-top: var(--sp-1);
+  font: var(--text-small);
 }
 
-/* ---- Research items ------------------------------------- */
-
-.research { display: flex; flex-direction: column; gap: var(--sp-5); }
-
-.research__item { display: flex; gap: var(--sp-5); align-items: flex-start; }
-
-.research__n {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--accent-text);
-  flex: none;
-  width: 28px;
-  padding-top: 5px;
-}
-
-.research__head {
+/* A row with more to say: the title can share its line with a tag
+   (row__head), and a paragraph of prose follows (row__body), optionally
+   with a small figure floated beside it. */
+.row__head {
   display: flex;
   align-items: baseline;
   gap: var(--sp-3);
@@ -524,18 +534,22 @@ body {
   margin-bottom: var(--sp-2);
 }
 
-.research__head h3 { font: var(--text-h4); }
-.research__body { font: var(--text-body); color: var(--text-secondary); max-width: 64ch; line-height: 1.6; }
-.research__body a { color: var(--link); }
-.research__fig { float: right; width: 120px; margin: 0 0 var(--sp-3) var(--sp-4); }
+.row__body { font: var(--text-body); color: var(--text-secondary); max-width: var(--measure); line-height: 1.6; }
+.row__figure { float: right; width: 120px; margin: 0 0 var(--sp-3) var(--sp-4); }
 
-/* ---- Publications --------------------------------------- */
+/* Figures are black line art on a transparent ground, loaded as <img> so
+   they can't follow currentColor. In dark mode, flip them: black becomes a
+   soft light grey (not pure white, to sit with the text), mid-grey stays
+   put. Same two selectors as every other theme switch in this file. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .row__figure { filter: invert(0.9); }
+}
+:root[data-theme="dark"] .row__figure { filter: invert(0.9); }
 
-.pub { padding: var(--sp-4) 0; border-bottom: var(--bw-hair) solid var(--border); }
-.pub__title { font: var(--text-h4); font-weight: var(--fw-medium); color: var(--text); text-decoration: none; display: block; }
-.pub__title:hover { color: var(--accent-text); }
-.pub__meta { font: var(--text-small); color: var(--text-muted); margin-top: 3px; }
-.pub__meta em { font-style: italic; color: var(--text-secondary); }
+@media (max-width: 520px) {
+  .row-list { display: block; }
+  .row { display: flex; flex-direction: column; gap: var(--sp-1); }
+}
 
 /* ---- Projects ------------------------------------------- */
 
@@ -589,19 +603,7 @@ body {
 .project-card__meta span { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
 .project-card__dot { width: 9px; height: 9px; border-radius: var(--r-circle); background: var(--coral); }
 .project-card__meta svg { width: 13px; height: 13px; }
-
-/* ---- Post list ------------------------------------------ */
-
-.post-row {
-  display: flex;
-  gap: var(--sp-5);
-  padding: var(--sp-4) 0;
-  border-bottom: var(--bw-hair) solid var(--border);
-  align-items: baseline;
-}
-
-.post-row a { font: var(--text-h4); color: var(--text); text-decoration: none; }
-.post-row a:hover { color: var(--accent-text); }
+.project-card__extra { color: var(--text-faint); }
 
 /* ---- Closing quote -------------------------------------- */
 
@@ -624,24 +626,6 @@ body {
 }
 
 /* ---- Misc ----------------------------------------------- */
-
-.orcid-card { margin-top: var(--sp-7); }
-
-.orcid-card__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: var(--sp-5);
-  flex-wrap: wrap;
-}
-
-.orcid-card__id {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--text-muted);
-  display: block;
-  margin-top: 4px;
-}
 
 .cta-row { display: flex; gap: var(--sp-3); margin-top: var(--sp-7); flex-wrap: wrap; align-items: center; }
 
@@ -708,3 +692,12 @@ body {
 }
 :root[data-theme="dark"] .theme-toggle__sun  { display: block; }
 :root[data-theme="dark"] .theme-toggle__moon { display: none; }
+
+/* ---- Spacing utilities ------------------------------------ */
+
+/* Last in the file on purpose: they set a block's top margin, and must win
+   over components that reset margins (.row-list, for one) at equal
+   specificity. */
+.stack { margin-top: var(--sp-5); }
+.stack-lg { margin-top: var(--sp-7); }
+.section { margin-top: var(--sp-8); }

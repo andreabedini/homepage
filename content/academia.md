@@ -12,21 +12,17 @@ quote = "These days I miss it a little — most of all standing at a blackboard,
 
 [[extra.tags]]
 label = "Lattice models"
-variant = "coral"
 
 [[extra.tags]]
 label = "Graph polynomials"
-variant = "blue"
 
 [[extra.tags]]
 label = "Supersymmetry"
 
 [[extra.tags]]
 label = "14 papers"
-variant = "solid"
 
 [[extra.research]]
-n = "01"
 title = "Critical phenomena in lattice polymers"
 tag = "Statistical mechanics"
 figure = "images/models.svg"
@@ -42,9 +38,8 @@ transition of trails is still considered an open problem in the field.
 '''
 
 [[extra.research]]
-n = "02"
 title = "Exact calculation of graph polynomials"
-tag = "Algorithms"
+tag = "Combinatorics"
 body = '''
 I built an algorithm for the Tutte polynomial of a graph that extends the
 classic transfer-matrix approach with the computer-science idea of
@@ -58,7 +53,6 @@ fraction of the time.
 '''
 
 [[extra.research]]
-n = "03"
 title = "Supersymmetric methods in combinatorics"
 tag = "Mathematical physics"
 figure = "images/hyperedge.svg"
@@ -71,14 +65,16 @@ be the spontaneous breaking of a hidden supersymmetry, and the appearance of a
 '''
 
 [[extra.teaching]]
-years = "2014"
+start = "2014"
+end = "2014"
 role = "Experimental Mathematics"
 code = "MAST90053"
 note = "Lecturer in charge — revised lecture notes, Mathematica notebooks, assignments and exam questions."
 href = "https://github.com/andreabedini/experimental-mathematics#readme"
 
 [[extra.teaching]]
-years = "2012 — 13"
+start = "2012"
+end = "2013"
 role = "Calculus 2"
 code = "MAST10006"
 note = "One of four lecturers — lectures, practice classes, assignment and exam questions."

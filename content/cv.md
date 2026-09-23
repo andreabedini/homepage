@@ -9,87 +9,125 @@ aliases = ["/education/", "/experience/"]
 [extra]
 eyebrow = "// curriculum vitae"
 headline = "Physics, then code — the long way round."
+intro = "I build the platforms other people build on. I was an early adopter of the Python data stack, long before it was the obvious choice, and carried it from research into industry; since 2022 I’ve been building the infrastructure behind Cardano at Tweag. None of that is worth much if it stays with me, so a good part of the work is mentoring people and encouraging them to build."
 
 [[extra.tags]]
 label = "Italy → Australia"
-variant = "solid"
 
 [[extra.tags]]
 label = "Research → Industry"
 
 [[extra.tags]]
 label = "CERN alumnus"
-variant = "coral"
+
+# CV entries, newest first. Dates are "YYYY-MM" or "YYYY"; the page renders
+# years only. Leave out `end` for a current role; add `dormant = true` to
+# show only the start year for something not over but quiet.
 
 [[extra.experience]]
-years = "2022 — now"
-role = "Software Engineer"
+start = "2022-01"
+role = "Sr. Specialist Functional Engineer"
 org = "Tweag"
 href = "https://tweag.io"
 
 [[extra.experience]]
-years = "2020 — 21"
+start = "2019-10"
+end = "2021-12"
 role = "Specialist Data Scientist"
 org = "Fortescue Metals Group"
 href = "https://www.fmgl.com.au"
+note = "inventor, Innovation Patent #2022100025"
 
 [[extra.experience]]
-years = "2019"
+start = "2019-04"
+end = "2019-10"
 role = "Autonomy Systems Architect"
 org = "Fortescue Metals Group"
 href = "https://www.fmgl.com.au"
+note = "working on an industrial autonomy project"
 
 [[extra.experience]]
-years = "2017 — 19"
+start = "2017-08"
+end = "2019-04"
 role = "Data Scientist"
 org = "KZN Group"
 href = "https://kzn.io"
+note = "cloud architecture, data engineering and development"
 
 [[extra.experience]]
-years = "2016 — 17"
+start = "2016-02"
+end = "2017-08"
 role = "Business Computational Specialist"
 org = "Curtin Institute for Computation"
 href = "https://computation.curtin.edu.au"
 
 [[extra.experience]]
-years = "2010 — 16"
+start = "2010-05"
+end = "2016-02"
 role = "Research Fellow"
 org = "The University of Melbourne"
 href = "https://ms.unimelb.edu.au"
 
 [[extra.experience]]
-years = "2005 — 16"
+start = "2005"
+end = "2016"
 role = "Unix System Administrator"
 org = "Università di Pisa"
-note = "occasional / part-time"
 href = "https://www.unipi.it"
+note = "occasional / part-time"
 
 [[extra.experience]]
-years = "2003"
+start = "2003"
+end = "2003"
 role = "Summer Student"
 org = "CERN"
 href = "https://cern.ch"
 
 [[extra.experience]]
-years = "2000"
+start = "2000"
+end = "2000"
 role = "Unix System Administrator"
 org = "Sunrise S.R.L."
 
 [[extra.education]]
-years = "2010"
-role = "PhD in Physics"
+start = "2006"
+end = "2010"
+role = "PhD in Theoretical and Mathematical Physics"
 org = "Università degli Studi di Milano"
 href = "https://www.unimi.it"
 
 [[extra.education]]
-years = "2006"
+start = "2004"
+end = "2006"
 role = "M.Sc. Physics"
 org = "Università di Pisa"
 href = "https://www.unipi.it"
 
 [[extra.education]]
-years = "2004"
+start = "2000"
+end = "2004"
 role = "B.Sc. Physics"
 org = "Università di Pisa"
 href = "https://www.unipi.it"
+
+[[extra.community]]
+start = "2018"
+dormant = true
+role = "Co-organiser"
+org = "Perth Functional Programmers"
+href = "https://www.meetup.com/PerthFP/"
+
+[[extra.community]]
+start = "2017"
+end = "2017"
+role = "Organising team"
+org = "Research Bazaar Perth"
+
+[[extra.community]]
+start = "2013"
+end = "2019"
+role = "Co-founder"
+org = "The Laborastory"
+href = "https://thelaborastory.com"
+note = "science storytelling, Melbourne"
 +++

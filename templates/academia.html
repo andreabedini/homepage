@@ -6,30 +6,30 @@
 {% block content %}
 <article class="page">
   <div class="eyebrow">{{ page.extra.eyebrow }}</div>
-  <h1 class="page__title" style="max-width:18ch">{{ page.extra.headline }}</h1>
+  <h1 class="page__title">{{ page.extra.headline }}</h1>
   <p class="page__intro">{{ page.extra.intro }}</p>
 
   {{<tag_row items={page.extra.tags} class="tag-row stack" />}}
 
   <section class="section" id="research">
     {{<section_head label="Research" heading={true} />}}
-    <div class="research">
+    <ul class="row-list">
       {% for r in page.extra.research %}
-      <div class="research__item">
-        <span class="research__n">{{ r.n }}</span>
-        <div style="flex:1">
-          <div class="research__head">
-            <h3>{{ r.title }}</h3>
+      <li class="row">
+        <span class="row__label">{% if loop.index < 10 %}0{% endif %}{{ loop.index }}</span>
+        <div class="row__main">
+          <div class="row__head">
+            <h3 class="row__title">{{ r.title }}</h3>
             <span class="tag tag--sm">{{ r.tag }}</span>
           </div>
-          <div class="research__body">
-            {% if r?.figure %}<img class="research__fig" src="{{ get_url(path=r.figure) }}" alt="">{% endif %}
+          <div class="row__body">
+            {% if r?.figure %}<img class="row__figure" src="{{ get_url(path=r.figure) }}" alt="">{% endif %}
             {{ r.body | safe }}
           </div>
         </div>
-      </div>
+      </li>
       {% endfor %}
-    </div>
+    </ul>
   </section>
 
   <section class="section" id="teaching">
@@ -37,13 +37,11 @@
     <ul class="row-list">
       {% for t in page.extra.teaching %}
       <li class="row">
-        <span class="row__years row__years--narrow">{{ t.years }}</span>
+        <span class="row__label">{{<years item={t} />}}</span>
         <div class="row__main">
-          <div class="row__role">
-            {% if t?.href %}<a href="{{ t.href }}">{{ t.role }}</a>{% else %}{{ t.role }}{% endif %}
-            <span class="mono-aside">{{ t.code }}</span>
-          </div>
-          <div class="row__org" style="margin-top:2px">{{ t.note }}</div>
+          <div class="row__title">{{ t.role }} <span class="mono-aside">{{ t.code }}</span></div>
+          <div class="row__meta">{{ t.note }}</div>
+          {% if t?.href %}<a class="row__link" href="{{ t.href }}">Lecture notes and notebooks on GitHub</a>{% endif %}
         </div>
       </li>
       {% endfor %}
@@ -52,27 +50,24 @@
 
   <section class="section" id="publications">
     {{<section_head label="Publications" heading={true} />}}
+    {# Numbered like a bibliography, newest first, so the oldest paper is 1. #}
+    {% set total = page.extra.publications | length %}
     <ul class="row-list">
       {% for p in page.extra.publications %}
-      <li class="pub">
-        <a class="pub__title" href="{{ p.href }}">{{ p.title }}</a>
-        <div class="pub__meta">{{ p.authors }} &middot; <em>{{ p.venue }}</em>, {{ p.year }}</div>
+      <li class="row">
+        <span class="row__label">{{ total - loop.index0 }}</span>
+        <div class="row__main">
+          <a class="row__title" href="{{ p.href }}">{{ p.title }}</a>
+          <div class="row__meta">{{ p.authors }} &middot; <em>{{ p.venue }}</em>, {{ p.year }}</div>
+        </div>
       </li>
       {% endfor %}
     </ul>
   </section>
 
-  <div class="card card--ink card--print card--accent orcid-card" data-theme="ink">
-    <div class="orcid-card__inner">
-      <div>
-        <div class="card__label">// orcid</div>
-        <p style="max-width:42ch">
-          {{ page.extra.publications | length }} papers in all, indexed on ORCID
-          <span class="orcid-card__id">{{ page.extra.orcid }}</span>
-        </p>
-      </div>
-      <a class="btn btn--primary" href="https://orcid.org/{{ page.extra.orcid }}">View on ORCID</a>
-    </div>
+  <div class="card card--ink card--note stack-lg" data-theme="ink">
+    <div class="card__label">// orcid</div>
+    <p>{{ page.extra.publications | length }} papers in all, indexed on ORCID as <a href="https://orcid.org/{{ page.extra.orcid }}">{{ page.extra.orcid }}</a>.</p>
   </div>
 
   <figure class="pull-quote">

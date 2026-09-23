@@ -27,17 +27,36 @@
 {% endcomponent wordmark %}
 
 {# One topic chip. #}
-{% component tag(label: string, variant: string = "") %}
-<span class="tag{% if variant %} tag--{{ variant }}{% endif %}">{{ label }}</span>
+{% component tag(label: string) %}
+<span class="tag">{{ label }}</span>
 {% endcomponent tag %}
 
-{# A CV / education row. #}
-{% component cv_row(item, narrow: bool = false) %}
+{# The years of a dated entry (CV, teaching), as text.
+
+   Entries keep full "YYYY-MM" dates; only years are shown. A range reads
+   "2017 — 19", a current role "2022 — now", and a range within one year
+   collapses to "2019". A `dormant` entry shows only its start year.
+   end_only shows just the end year, which is how degrees are listed (the
+   year awarded). #}
+{% component years(item, end_only: bool = false) %}
+{%- set sy = item.start | split(pat="-") | first -%}
+{%- set ey = item?.end or "" -%}
+{%- set ey = ey | split(pat="-") | first -%}
+{%- if end_only -%}{{ ey }}
+{%- elif item?.dormant -%}{{ sy }}
+{%- elif not ey -%}{{ sy }} — now
+{%- elif ey == sy -%}{{ sy }}
+{%- else -%}{% set yy = (ey | int) % 100 %}{{ sy }} — {% if yy < 10 %}0{% endif %}{{ yy }}
+{%- endif -%}
+{% endcomponent years %}
+
+{# A CV row: years, role, and the organisation with an optional note. #}
+{% component cv_row(item, end_only: bool = false) %}
 <li class="row">
-  <span class="row__years{% if narrow %} row__years--narrow{% endif %}">{{ item.years }}</span>
+  <span class="row__label">{{<years item={item} end_only={end_only} />}}</span>
   <span class="row__main">
-    <span class="row__role">{{ item.role }}</span>
-    <span class="row__org">
+    <span class="row__title">{{ item.role }}</span>
+    <span class="row__meta">
       {%- if item?.href -%}
         <a href="{{ item.href }}">{{ item.org }}</a>
       {%- else -%}
@@ -66,9 +85,9 @@
 </div>
 {% endcomponent section_head %}
 
-{# A row of topic chips from a list of {label, variant} maps. #}
+{# A row of topic chips from a list of {label} maps. #}
 {% component tag_row(items, class: string = "tag-row") %}
 <div class="{{ class }}">
-  {% for t in items %}{{<tag label={t.label} variant={t?.variant or ""} />}}{% endfor %}
+  {% for t in items %}{{<tag label={t.label} />}}{% endfor %}
 </div>
 {% endcomponent tag_row %}

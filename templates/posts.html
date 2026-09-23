@@ -10,9 +10,9 @@
 
   <ul class="row-list stack-lg">
     {% for post in section.pages %}
-    <li class="post-row">
-      <span class="row__years">{{ post.date | date(format="%b %Y") }}</span>
-      <a href="{{ post.permalink }}">{{ post.title }}</a>
+    <li class="row">
+      <span class="row__label">{{ post.date | date(format="%b %Y") }}</span>
+      <div class="row__main"><a class="row__title" href="{{ post.permalink }}">{{ post.title }}</a></div>
     </li>
     {% endfor %}
     {% if section.pages | length == 0 %}

@@ -24,20 +24,7 @@
 
   {{<tag_row items={section.extra.topics} class="tag-row stack-lg" />}}
 
-  <section class="section">
-    {{<section_head label={section.extra.languages.label} heading={true} />}}
-    <div class="tag-row">
-      {% for l in section.extra.languages.shipped %}
-      <span class="tag">{{ l }}</span>
-      {% endfor %}
-      <span class="mono-aside">still on the list &rarr;</span>
-      {% for l in section.extra.languages.still_on_the_list %}
-      <span class="tag tag--ghost">{{ l }}</span>
-      {% endfor %}
-    </div>
-  </section>
-
-  <div class="card card--ink card--print stack-lg" data-theme="ink" style="padding:var(--sp-5);max-width:52ch">
+  <div class="card card--ink card--note stack-lg" data-theme="ink">
     <div class="card__label">{{ section.extra.footnote.label }}</div>
     <p>{{ section.extra.footnote.body }}</p>
   </div>

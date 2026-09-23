@@ -24,7 +24,7 @@
       <p class="project-card__desc">{{ p.desc }}</p>
       <div class="project-card__meta">
         <span><span class="project-card__dot"></span>{{ p.lang }}</span>
-        {% if p?.meta %}<span style="color:var(--text-faint)">{{ p.meta }}</span>{% endif %}
+        {% if p?.meta %}<span class="project-card__extra">{{ p.meta }}</span>{% endif %}
       </div>
     </a>
     {% endfor %}
@@ -32,7 +32,6 @@
 
   <div class="cta-row">
     <a class="btn btn--secondary" href="https://github.com/andreabedini?tab=repositories">Browse all repositories</a>
-    <span class="mono-aside">{{ page.extra.aside }}</span>
   </div>
 </article>
 {% endblock content %}
