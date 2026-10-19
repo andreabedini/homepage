@@ -9,6 +9,12 @@ This requires **Settings → Pages → Build and deployment → Source = "GitHub
 Actions"**. The custom domain lives in those same settings, not in a `CNAME`
 file — with this publishing source a `CNAME` file in the repo does nothing.
 
+The repo is deliberately a project site (`homepage`), not the user site
+(`andreabedini.github.io`). A custom domain on the user site is inherited by
+every project site, which would move them from
+`andreabedini.github.io/<repo>` to `www.andreabedini.com/<repo>`. A custom
+domain on a project site applies to that repo only.
+
 ```sh
 zola serve     # http://127.0.0.1:1111, live reload
 zola build     # -> public/
